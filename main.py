@@ -6,15 +6,22 @@ import json
 def input_dir():
     Tk().withdraw()
     fd = filedialog.askdirectory()
-    f = open(f'{fd}/py_tasks.json', 'r')
-    data = json.load(f)
-    return {
-        'data': data,
-        'fd': fd
-    }
+    try:
+        f = open(f'{fd}/py_tasks.json', 'r')
+        data = json.load(f)
+        return {
+            'data': data,
+            'fd': fd
+        }
+    except:
+        return {
+            'data': {},
+            'fd': fd
+        }
+
 
 def write_to_json(fd, data):
-    f = open(f'{fd}/py_tasks.json', 'w')
+    f = open(f'{fd}/py_tasks.json', 'w+')
     f.write(json.dumps(data, indent=4))
 
 def main(imported_data):
